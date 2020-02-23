@@ -12,10 +12,14 @@
 
 function DataReport{
     # define input parameters 
-    param( 
+    param(
+    $input_data_file, 
+    [switch]$input_mode_manual,
+    $input_labels,
     $input_data
     )
 
+    ### directory management 
     # set root dir to the pwd
     $root_dir = pwd
 
@@ -27,15 +31,44 @@ function DataReport{
         New-Item -ItemType Directory -Force -Path $output_dirname
     }
 
-    # add data 
-    $indata = Import-Csv -Delimiter "`t" -path $input_data -Header var1, var2, var3, var4, var5, var6, var7, var8
+    ### conditionally load data based on the input mode 
+    # for tsv input 
+    if ($input_mode_manual -eq $false) { 
+        # if the input mode is not manual, load in the csv
+        $indata = Import-Csv -Delimiter "`t" -path $input_data_file -Header var1, var2, var3, var4, var5, var6, var7
+        
+        # split the first values into the header
+        $input_labels = $indata[0]
+        
+        # update the indata object to just be data 
+        $indata = $indata[1..($indata.Count-1)]
+    } elseif ($input_mode_manual -eq $true) {
+            # relabel input data in hash 
+            $indata = @{var1 = $input_data[0]
+                        var2 = $input_data[1] 
+                        var3 = $input_data[2]
+                        var4 = $input_data[3]
+                        var5 = $input_data[4] 
+                        var6 = $input_data[5]
+                        var7 = $input_data[6]
+                        }
 
-    $inheaders = $indata[0]
+            # relabel input labels in hash 
+            $input_labels = @{var1 = $input_labels[0]
+                              var2 = $input_labels[1] 
+                              var3 = $input_labels[2]
+                              var4 = $input_labels[3]
+                              var5 = $input_labels[4] 
+                              var6 = $input_labels[5]
+                              var7 = $input_labels[6]
+                             }
+    }
 
-    $indata = $indata[1..($indata.Count-1)]
-
+    ### prep for processing by requests input 
+    # get the ids from the request input 
     $request_ids = $indata.var1 | Sort-Object | Get-Unique
 
+    ### loop for each ID in the input
     ForEach($id in $request_ids){
         # create new excel object 
         $excel = New-Object -ComObject excel.application
@@ -56,15 +89,15 @@ function DataReport{
 
             ForEach($CurData in $CurReq){
 
-                # Title
-                if ($CurReq[0].var1) {
-                    $RequestTitle = $CurReq[0].var2
+                ### Title
+                if ($CurData.var1) {
+                    $RequestTitle = $CurData.var2
                 } else {
-                    $RequestTitle = ($CurReq[0].input_path.Split("\")[-1].Split(".")[0])
+                    $RequestTitle = ($CurData.var2.Split("\")[-1].Split("."))
                 }
 
                 # Output Filename
-                $output_fname = "\" + $CurReq[0].var1 + "_" + ($CurData[0].var2 -replace "\s+", "") + ".xlsx"
+                $output_fname = "\" + $CurData.var1 + "_" + ($CurData.var2 -replace "\s+", "") + ".xlsx"
 
                 # create a variable referencing the first sheet of the wb
                 $ws= $workbook.Worksheets.Item(1)
@@ -101,18 +134,18 @@ function DataReport{
                 # fill cells with header information 
                 $ws.Cells.Item(1,1) = $CurData.var2
                 $ws.Cells.Item(2,1) = $CurData.var3
-                $ws.Cells.Item(3,1) = "Date of Data Extract: "
-                $ws.Cells.Item(4,1) = $CurData.var5
-                $ws.Cells.Item(5,1) = "Request Description: "
-                $ws.Cells.Item(6,1) = $CurData.var4
+                $ws.Cells.Item(3,1) = $input_labels.var4
+                $ws.Cells.Item(4,1) = $CurData.var4
+                $ws.Cells.Item(5,1) = $input_labels.var5
+                $ws.Cells.Item(6,1) = $CurData.var5
 
                 # internal use data 
                 $ws.Cells.Item(1,6) = "Internal Use"
-                $ws.Cells.Item(2,6) = "Request ID: "
+                $ws.Cells.Item(2,6) = $input_labels.var1
                 $ws.Cells.Item(2,7) = $CurData.var1
-                $ws.Cells.Item(3,6) = "Data: "
+                $ws.Cells.Item(3,6) = $input_labels.var6
                 $ws.Cells.Item(3,7) = $CurData.var6
-                $ws.Cells.Item(4,6) = "Code: "
+                $ws.Cells.Item(4,6) = $input_labels.var7
                 $ws.Cells.Item(4,7) = $CurData.var7
 
                 # format header data
@@ -142,8 +175,8 @@ function DataReport{
             
             }
         # Save and Quit 
-        $workbook.SaveAs($output_dirname+$output_fname)
-        $excel.Quit()
+        $workbook.SaveAs($output_dirname+$output_fname) | Out-Null
+        $excel.Quit() | Out-Null
 
     }
 
