@@ -22,7 +22,7 @@ Custom variables in the following cells:
 |Reference Variable #3|A2|Bolded||
 |Reference Variable #4|A4|||
 |Reference Variable #5|A6|||
-|Reference Variable #6|G3|Bolded, Right Aligned|Name of CSV File Loaded - important: this should be a path to a .csv file and is used to identify data that is added to the report and must be included. e.g.: .\path\to\my\cool\data.csv|
+|Reference Variable #6|G3|Bolded, Right Aligned|Name of CSV File Loaded^|
 |Reference Variable #7|G4 (Bolded, Right Aligned)
 |Reference Label #1|F2 (Bolded, Right Aligned)
 |Reference Label #2|||Not Output|
@@ -31,6 +31,8 @@ Custom variables in the following cells:
 |Reference Label #5|A5|Bolded||
 |Reference Label #6|F3|Bolded, Right Aligned||
 |Reference Label #7|F4|Bolded, Right Aligned||
+
+^important: this should be a path to a .csv file and is used to identify data that is added to the report and must be included. e.g.: .\path\to\my\cool\data.csv
 
 Data from the file referenced in variable #6 is loaded into the spreadsheet starting in row 10 with the input variable names bolded, a background cell color of gray added, and the cells locked to allow scrolling while keeping the variable names shown.
 
