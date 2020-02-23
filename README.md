@@ -27,7 +27,7 @@ To verify that the new modules are available, this command will list all availab
 # list available modules 
 Get-Module -ListAvailable
 ```
-### Running Scripts
+### Running Scripts:
 Note: in order to run scripts, the Execution Policy needs to be set to the appropriate level. 
 For example:
 ```
