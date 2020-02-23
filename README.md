@@ -17,24 +17,20 @@ Use of the script will create an formatted excel document with the following cha
 Custom variables in the following cells:
 |Variable Position|Spreadsheet Position|Formating|Notes|
 |-----------------|--------------------|---------|-----|
-|Reference Variable #1|G2||Name of Output File|
-
-Reference Variable #2 --- A1 (Bolded, Font Size 13), Name of Output File 
-note: if this is not provided by the user, then a value will be derived from the value from variable #6
-Reference Variable #3 --- A2 (Bolded)
-Reference Variable #4 --- A4 
-Reference Variable #5 --- A6 
-Reference Variable #6 --- G3 (Bolded, Right Aligned), Name of CSV File Loaded
-important: this should be a path to a .csv file and is used to identify data that is added to the report and must be included
-e.g.: .\path\to\my\cool\data.csv
-Reference Variable #7 --- G4 (Bolded, Right Aligned)
-Reference Label #1 --- F2 (Bolded, Right Aligned)
-Reference Label #2 --- Not Output
-Reference Label #3 --- Not Output
-Reference Label #4 --- A3 (Bolded)
-Reference Label #5 --- A5 (Bolded)
-Reference Label #6 --- F3 (Bolded, Right Aligned)
-Reference Label #7 --- F4 (Bolded, Right Aligned)
+|Reference Variable #1|G2, Name of Output File|||
+|Reference Variable #2|A1, Name of Output File|Bolded, Font Size 13|note: if this is not provided by the user, then a value will be derived from the value from variable #6|
+|Reference Variable #3|A2|Bolded||
+|Reference Variable #4|A4|||
+|Reference Variable #5|A6|||
+|Reference Variable #6|G3|Bolded, Right Aligned|Name of CSV File Loaded - important: this should be a path to a .csv file and is used to identify data that is added to the report and must be included. e.g.: .\path\to\my\cool\data.csv|
+|Reference Variable #7|G4 (Bolded, Right Aligned)
+|Reference Label #1|F2 (Bolded, Right Aligned)
+|Reference Label #2|||Not Output|
+|Reference Label #3|||Not Output|
+|Reference Label #4|A3|Bolded||
+|Reference Label #5|A5|Bolded||
+|Reference Label #6|F3|Bolded, Right Aligned||
+|Reference Label #7|F4|Bolded, Right Aligned||
 
 Data from the file referenced in variable #6 is loaded into the spreadsheet starting in row 10 with the input variable names bolded, a background cell color of gray added, and the cells locked to allow scrolling while keeping the variable names shown.
 
