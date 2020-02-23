@@ -10,130 +10,6 @@
      
 #>
 
-function DataReport-Manual{
-    # define input parameters 
-    param( 
-    [string[]] $input_path,
-    $RequestID, 
-    $RequestTitle, 
-    $RequestSubTitle, 
-    $RequestDescription, 
-    $RequestExtractDataDate, 
-    $root_dir
-    )
-
-    ### set default and input paramaters
-    # directory and file management 
-
-    # set root dir if there wasn't an argument passed in
-    if (!($root_dir)) {
-        $root_dir = pwd
-    }
-
-    # join strings
-    $output_dirname = Join-Path $root_dir "\output"
-
-    # check if the output directory exists, if fnot create it
-    if (!(Test-Path $output_dirname)) {
-        New-Item -ItemType Directory -Force -Path $output_dirname   
-    }
-
-    ### set variables if they don't exist 
-    # Request ID
-    if (!($RequestID)) {
-        $RequestID = "No_RequestID"
-    }
-
-    # Title
-    if (!($RequestTitle)) {
-        # if there isn't a title provided just use the filename 
-        $RequestTitle = ($input_path.Split("\")[-1].Split(".")[0])
-    }
-
-    # Output Filename
-    if (!($output_fname)) {
-        $output_fname = "\" + $RequestID + "_" + ($RequestTitle -replace "\s+", "") + ".xlsx"
-    }
-
-    # create new excel object 
-    $excel = New-Object -ComObject excel.application
-
-    # show the excel object 
-    $excel.visible = $True
-
-    # add a workbook 
-    $workbook = $excel.Workbooks.Add()
-
-    # remove gridlines 
-    $excel.ActiveWindow.DisplayGridlines = $false
-
-    # create a variable referencing the first sheet of the wb
-    $ws= $workbook.Worksheets.Item(1)
-
-    # change the name of the sheet 
-    $ws.Name = "$RequestTitle"
-
-    # fill cells with header information 
-    $ws.Cells.Item(1,1) = $RequestTitle
-    $ws.Cells.Item(2,1) = $RequestSubTitle
-    $ws.Cells.Item(3,1) = "Request ID: "
-    $ws.Cells.Item(3,2) = $RequestID
-    $ws.Cells.Item(4,1) = "Date of Data Extract: "
-    $ws.Cells.Item(4,2) = $RequestExtractDataDate
-    $ws.Cells.Item(5,1) = "Request Description: "
-    $ws.Cells.Item(5,2) = $RequestDescription
-
-    # internal use data 
-    $ws.Cells.Item(1,6) = "Internal Use"
-    $ws.Cells.Item(2,6) = "Raw Data: "
-    $ws.Cells.Item(2,7) = $input_path
-    $ws.Cells.Item(3,6) = "Code: "
-    $ws.Cells.Item(3,7) = "Need variable for this"
-
-    # format header data
-    $ws.Range("A1:A5").Font.Bold=$True              # BOLD - range A1:A5
-    $ws.Range("F1:F5").Font.Bold=$True               # BOLD - range F1:F5
-    $ws.Cells.item(1,1).Font.Size=13                # SIZE - Title = 13
-    $ws.Range("A3:A5").HorizontalAlignment = -4152  # RIGHT ALIGN - range A3:A5
-    $ws.Range("B3:B5").HorizontalAlignment = -4131  # LEFT ALIGN - range B3:B5
-    $ws.Range("F1:F5").HorizontalAlignment = -4152  # RIGHT ALIGN - range A3:A5
-
-    # add data 
-    $i = 10
-    Import-Csv $input_path | ForEach-Object {
-      $j = 1
-      foreach ($prop in $_.PSObject.Properties) {
-        if ($i -eq 10) {
-          $ws.Cells.Item($i, $j).Value = $prop.Name
-
-          # formatting 
-          $ws.Cells.Item($i,$j).Interior.ColorIndex = 15
-          $ws.Cells.Item($i,$j++).Font.Bold=$True
-
-        } else {
-          $ws.Cells.Item($i, $j++).Value = $prop.Value
-        }
-      }
-      $i++
-    }
-
-    # find the filled cells and autofit them 
-    $usedRange = $ws.UsedRange						
-    $usedRange.EntireColumn.AutoFit() | Out-Null
-
-
-    #freeze the top rows
-    $ws.Rows.Item("11:11").Select()
-    $ws.Application.ActiveWindow.FreezePanes = $true
-
-
-    # Save and Quit 
-    $workbook.SaveAs($output_dirname+$output_fname)
-    $excel.Quit()
-
-}
-
-
 function DataReport{
     # define input parameters 
     param( 
@@ -152,22 +28,23 @@ function DataReport{
     }
 
     # add data 
-    $indata = Import-Csv -Delimiter "`t" -path $input_data
+    $indata = Import-Csv -Delimiter "`t" -path $input_data -Header var1, var2, var3, var4, var5, var6, var7, var8
 
-    $request_ids = $indata.RequestID | Sort-Object | Get-Unique
+    $inheaders = $indata[0]
+
+    $indata = $indata[1..($indata.Count-1)]
+
+    $request_ids = $indata.var1 | Sort-Object | Get-Unique
 
     ForEach($id in $request_ids){
         # create new excel object 
         $excel = New-Object -ComObject excel.application
 
-        # show the excel object 
-        #$excel.visible = $True
-
         # add a workbook 
         $workbook = $excel.Workbooks.Add()
 
         # get the current request
-        $CurReq = $indata | Where-Object {$_.RequestID -eq $id}
+        $CurReq = $indata | Where-Object {$_.var1 -eq $id}
 
         # get the length of the object
         $obj_details = $CurReq | Measure-Object
@@ -180,24 +57,27 @@ function DataReport{
             ForEach($CurData in $CurReq){
 
                 # Title
-                if ($CurReq[0].RequestTitle) {
-                    $RequestTitle = $CurReq[0].RequestTitle
+                if ($CurReq[0].var1) {
+                    $RequestTitle = $CurReq[0].var2
                 } else {
                     $RequestTitle = ($CurReq[0].input_path.Split("\")[-1].Split(".")[0])
                 }
 
                 # Output Filename
-                $output_fname = "\" + $CurReq[0].RequestID + "_" + ($CurData[0].RequestTitle -replace "\s+", "") + ".xlsx"
+                $output_fname = "\" + $CurReq[0].var1 + "_" + ($CurData[0].var2 -replace "\s+", "") + ".xlsx"
 
                 # create a variable referencing the first sheet of the wb
                 $ws= $workbook.Worksheets.Item(1)
 
                 # change the name of the sheet
-                $ws.Name = $CurData.RequestSubTitle
+                # get the value
+                $new_sheetname = $CurData.var3    ### this is a janky solution but it works
+                # set the value 
+                $ws.Name = "$new_sheetname"
 
                 # add data 
                 $i = 10
-                Import-Csv $CurData.input_path | ForEach-Object {
+                Import-Csv $CurData.var6 | ForEach-Object {
                     $j = 1
                     foreach ($prop in $_.PSObject.Properties) {
                     if ($i -eq 10) {
@@ -219,21 +99,21 @@ function DataReport{
                 $usedRange.EntireColumn.AutoFit() | Out-Null
 
                 # fill cells with header information 
-                $ws.Cells.Item(1,1) = $CurData.RequestTitle
-                $ws.Cells.Item(2,1) = $CurData.RequestSubTitle
+                $ws.Cells.Item(1,1) = $CurData.var2
+                $ws.Cells.Item(2,1) = $CurData.var3
                 $ws.Cells.Item(3,1) = "Date of Data Extract: "
-                $ws.Cells.Item(4,1) = $CurData.RequestExtractDate
+                $ws.Cells.Item(4,1) = $CurData.var5
                 $ws.Cells.Item(5,1) = "Request Description: "
-                $ws.Cells.Item(6,1) = $CurData.RequestDescription
+                $ws.Cells.Item(6,1) = $CurData.var4
 
                 # internal use data 
                 $ws.Cells.Item(1,6) = "Internal Use"
                 $ws.Cells.Item(2,6) = "Request ID: "
-                $ws.Cells.Item(2,7) = $CurData.RequestID
+                $ws.Cells.Item(2,7) = $CurData.var1
                 $ws.Cells.Item(3,6) = "Data: "
-                $ws.Cells.Item(3,7) = $CurData.input_path
+                $ws.Cells.Item(3,7) = $CurData.var6
                 $ws.Cells.Item(4,6) = "Code: "
-                $ws.Cells.Item(4,7) = $CurData.code_path
+                $ws.Cells.Item(4,7) = $CurData.var7
 
                 # format header data
                 $ws.Range("A1:A3").Font.Bold=$True              # BOLD - range A1:A3
@@ -250,8 +130,6 @@ function DataReport{
                 #freeze the top rows
                 $ws.Rows.Item("11:11").Select()
                 $ws.Application.ActiveWindow.FreezePanes = $true
-                
-                #autotfi
             
                 # remove gridlines for a clean background 
                 $excel.ActiveWindow.DisplayGridlines = $false
