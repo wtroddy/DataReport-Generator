@@ -7,13 +7,17 @@ Given a set of input parameters, an .xlsx file that will be generated that is re
 ## Example Use:
 Data reports are generated using the function "DataReport" and can be invoked with different methods 1) using a reference .tsv file with relevant arguments or 2) by manually passing an array of arguments.
 
+### 1) Reference File Use
+Using a reference file is the default behavior of the function. The function works by taking in a input file with up to 7 variables. To support strings with commas this should be a tsv file. 
+
+
 ## Input-Output:
 Use of the script will create an formatted excel document with the following characteristics and values. In an attempt to create additional flexibility for the scripts use, the variable position trumps the label of the variable. The result is that labels are custom to each user. 
 
 Custom variables in the following cells:
-	Reference Variable #1 --- G2, Name of Output File 
-	Reference Variable #2 --- A1 (Bolded, Font Size 13), Name of Output File 
-		note: if this is not provided by the user, then a value will be derived from the value from variable #6
+	> Reference Variable #1 --- G2, Name of Output File 
+	> Reference Variable #2 --- A1 (Bolded, Font Size 13), Name of Output File 
+	>	note: if this is not provided by the user, then a value will be derived from the value from variable #6
 	Reference Variable #3 --- A2 (Bolded)
 	Reference Variable #4 --- A4 
 	Reference Variable #5 --- A6 
@@ -32,13 +36,6 @@ Custom variables in the following cells:
 Data from the file referenced in variable #6 is loaded into the spreadsheet starting in row 10 with the input variable names bolded, a background cell color of gray added, and the cells locked to allow scrolling while keeping the variable names shown.
 
 The output .xlsx file will be named as a combinated of either a) variable #1 and variable #2 or b) variable #1 and variable #6 and saved in the current directory in a new folder named "output". If no output folder exists than the script will generate one.
-
-
-### 1) Reference File Use
-Using a reference file is the default behavior of the function. The function works by taking in a input file with up to 7 variables. To support strings with commas this should be a tsv file. 
-
-
-
 
 ## Setup: 
 ### Environment Setup:
