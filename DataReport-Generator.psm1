@@ -88,7 +88,6 @@ function DataReport{
             $cur_entry = 1
 
             ForEach($CurData in $CurReq){
-
                 ### Title
                 if ($CurData.var1) {
                     $RequestTitle = $CurData.var2
