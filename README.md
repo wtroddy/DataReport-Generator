@@ -15,9 +15,9 @@ Using a reference file is the default behavior of the function. The function wor
 Use of the script will create an formatted excel document with the following characteristics and values. In an attempt to create additional flexibility for the scripts use, the variable position trumps the label of the variable. The result is that labels are custom to each user. 
 
 Custom variables in the following cells:
-	> Reference Variable #1 --- G2, Name of Output File 
-	> Reference Variable #2 --- A1 (Bolded, Font Size 13), Name of Output File 
-	>	note: if this is not provided by the user, then a value will be derived from the value from variable #6
+> Reference Variable #1 --- G2, Name of Output File 
+> Reference Variable #2 --- A1 (Bolded, Font Size 13), Name of Output File 
+>	note: if this is not provided by the user, then a value will be derived from the value from variable #6
 	Reference Variable #3 --- A2 (Bolded)
 	Reference Variable #4 --- A4 
 	Reference Variable #5 --- A6 
