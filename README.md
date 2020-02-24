@@ -48,19 +48,19 @@ Custom variables in the following cells:
 |Variable Position|Spreadsheet Position|Formating|Notes|
 |-----------------|--------------------|---------|-----|
 |Reference Variable #1|G2, Name of Output File|||
-|Reference Variable #2|A1, Name of Output File|Bolded, Font Size 13|note: if undefined then a value will be derived from the value from variable #6|
-|Reference Variable #3|A2|Bolded||
-|Reference Variable #4|A4|||
-|Reference Variable #5|A6|||
-|Reference Variable #6|G3|Bolded, Right Aligned|Name of CSV File Loaded^|
-|Reference Variable #7|G4|Bolded, Right Aligned||
+|Reference Variable #2|G3|Bolded, Right Aligned|Name of CSV File Loaded^|
+|Reference Variable #3|G4|Bolded, Right Aligned||
+|Reference Variable #4|A1, Name of Output File|Bolded, Font Size 13|note: if undefined then a value will be derived from variable #2|
+|Reference Variable #5|A2|Bolded||
+|Reference Variable #6|A4|||
+|Reference Variable #7|A6|||
 |Reference Label #1|F2|Bolded, Right Aligned||
-|Reference Label #2|||Not Output|
-|Reference Label #3|||Not Output|
-|Reference Label #4|A3|Bolded||
-|Reference Label #5|A5|Bolded||
-|Reference Label #6|F3|Bolded, Right Aligned||
-|Reference Label #7|F4|Bolded, Right Aligned||
+|Reference Label #2|F3|Bolded, Right Aligned||
+|Reference Label #3|F4|Bolded, Right Aligned||
+|Reference Label #4|||Not Output|
+|Reference Label #5|||Not Output|
+|Reference Label #6|A3|Bolded||
+|Reference Label #7|A5|Bolded||
 
 ^important: this should be a path to a .csv file and is used to identify data that is added to the report and must be included. e.g.: .\path\to\my\cool\data.csv
 
@@ -73,10 +73,10 @@ The output .xlsx file will be named as a combinated of either a) variable #1 and
 #### Example Input Data File 
 An example input data file may be formatted as:
 
-|RequestID|Title|SubTitle|Date|Description|Input_Path|Code_Path|
-|---------|-----|--------|----|-----------|----------|---------|
-|00000|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.sql|
-|00000|My Data|Statistics|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|
+|RequestID|Input_Path|Code_Path|Title|SubTitle|Date|Description|
+|---------|----------|---------|-----|--------|----|-----------|
+|00000|\path\to\my\cool\data.csv |\path\to\my\cool\code.sql|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|
+|00000|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|My Data|Statistics|YYYY-MM-DD|Details on the data|
 
 
 #### Example Output Data File
