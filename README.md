@@ -28,8 +28,25 @@ An example input data file may be formatted as:
 
 |RequestID|Title|SubTitle|Date|Description|Input_Path|Code_Path|
 |---------|-----|--------|----|-----------|----------|---------|
-|00000|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv\ |\path\to\my\cool\code.sql|
-|00000|My Data|Statistics|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv\ |\path\to\my\cool\code.R|
+|00000|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.sql|
+|00000|My Data|Statistics|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|
+
+
+
+#### Example Output Data File
+The example input will generate a pretty formated xlsx following this relative spacing:
+
+|My Data|    |    |    |    |    |    |
+|-------|----|----|----|----|----|----|
+|Raw Data Name| | | | |Input_Path|\path\to\my\cool\data.csv|
+|Date| | | | |Code_Path|\path\to\my\cool\code.sql|
+|YYYY-MM-DD| | | | | | |
+|Description| | | | | | |
+|Detail on the data| | | | | | |
+| | | | | | | |
+| | | | | | | |
+|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|
+|Data|Data|Data|Data|Data|Data|Data|
 
 ## Input-Output:
 Use of the script will create an formatted excel document with the following characteristics and values. In an attempt to create additional flexibility for the scripts use, the variable position trumps the label of the variable. The result is that labels are custom to each user. 
