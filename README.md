@@ -40,34 +40,10 @@ $data_array = @("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on t
 DataReport -input_mode_manual:$true -input_data:$data_array -input_labels:$label_array
 ```
 
-### Example Files
-#### Example Input Data File 
-An example input data file may be formatted as:
-
-|RequestID|Title|SubTitle|Date|Description|Input_Path|Code_Path|
-|---------|-----|--------|----|-----------|----------|---------|
-|00000|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.sql|
-|00000|My Data|Statistics|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|
-
-
-#### Example Output Data File
-The example input will generate a pretty formated xlsx workbook with two sheets. An example of the first row is shown with this relative spacing:
-
-|My Data|    |    |    |    |    |    |    |
-|-------|----|----|----|----|----|----|----|
-|Raw Data Name| | | | |Input_Path|\path\to\my\cool\data.csv||
-|Date| | | | |Code_Path|\path\to\my\cool\code.sql||
-|YYYY-MM-DD| | | | | | ||
-|Description| | | | | | ||
-|Detail on the data| | | | | | ||
-| | | | | | | ||
-| | | | | | | ||
-|CSV-V1|CSV-V2|CSV-V3|CSV-V4|CSV-V5|CSV-V6|CSV-V7|...|
-|Data|Data|Data|Data|Data|Data|Data|...|
-
 ## Input-Output:
 Use of the script will create an formatted excel document with the following characteristics and values. In an attempt to create additional flexibility for the scripts use, the variable position trumps the label of the variable. The result is that labels are custom to each user. 
 
+### Variable Definitions
 Custom variables in the following cells:
 |Variable Position|Spreadsheet Position|Formating|Notes|
 |-----------------|--------------------|---------|-----|
@@ -91,6 +67,34 @@ Custom variables in the following cells:
 Data from the file referenced in variable #6 is loaded into the spreadsheet starting in row 10 with the input variable names bolded, a background cell color of gray added, and the cells locked to allow scrolling while keeping the variable names shown.
 
 The output .xlsx file will be named as a combinated of either a) variable #1 and variable #2 or b) variable #1 and variable #6 and saved in the current directory in a new folder named "output". If no output folder exists than the script will generate one.
+
+
+### Example Files
+#### Example Input Data File 
+An example input data file may be formatted as:
+
+|RequestID|Title|SubTitle|Date|Description|Input_Path|Code_Path|
+|---------|-----|--------|----|-----------|----------|---------|
+|00000|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.sql|
+|00000|My Data|Statistics|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|
+
+
+#### Example Output Data File
+The example input will generate a pretty formated xlsx workbook with two sheets. An example of the first row is shown with this relative spacing:
+
+|My Data|    |    |    |    |    |Internal Use|    |
+|-------|----|----|----|----|----|----|----|
+|Raw Data Name| | | | |Input_Path|\path\to\my\cool\data.csv||
+|Date| | | | |Code_Path|\path\to\my\cool\code.sql||
+|YYYY-MM-DD| | | | | | ||
+|Description| | | | | | ||
+|Detail on the data| | | | | | ||
+| | | | | | | ||
+| | | | | | | ||
+|CSV-V1|CSV-V2|CSV-V3|CSV-V4|CSV-V5|CSV-V6|CSV-V7|...|
+|data|data|data|data|data|data|data|...|
+|...|...|...|...|...|...|...|...|
+
 
 ## Setup: 
 ### Environment Setup:
