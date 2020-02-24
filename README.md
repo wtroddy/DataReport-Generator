@@ -45,8 +45,8 @@ The example input will generate a pretty formated xlsx following this relative s
 |Detail on the data| | | | | | |
 | | | | | | | |
 | | | | | | | |
-|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|CSV_VarName|
-|Data|Data|Data|Data|Data|Data|Data|
+|CSV-V1|CSV-V2|CSV-V3|CSV-V4|CSV-V5|CSV-V6|CSV-V7|...|
+|Data|Data|Data|Data|Data|Data|Data|...|
 
 ## Input-Output:
 Use of the script will create an formatted excel document with the following characteristics and values. In an attempt to create additional flexibility for the scripts use, the variable position trumps the label of the variable. The result is that labels are custom to each user. 
