@@ -89,27 +89,27 @@ function DataReport{
 
             ForEach($CurData in $CurReq){
                 ### Title
-                if ($CurData.var2) {
-                    $RequestTitle = $CurData.var2
+                if ($CurData.var4) {
+                    $RequestTitle = $CurData.var4
                 } else {
                     $RequestTitle = ($CurData.var2.Split("\")[-1].Split("."))
                 }
 
                 # Output Filename
-                $output_fname = "\" + $CurData.var1 + "_" + ($CurData.var2 -replace "\s+", "") + ".xlsx"
+                $output_fname = "\" + $CurData.var1 + "_" + ($RequestTitle -replace "\s+", "") + ".xlsx"
 
                 # create a variable referencing the first sheet of the wb
                 $ws= $workbook.Worksheets.Item(1)
 
                 # change the name of the sheet
                 # get the value
-                $new_sheetname = $CurData.var3    ### this is a janky solution but it works
+                $new_sheetname = $CurData.var5    ### this is a janky solution but it works
                 # set the value 
                 $ws.Name = "$new_sheetname"
 
                 # add data 
                 $i = 10
-                Import-Csv $CurData.var6 | ForEach-Object {
+                Import-Csv $CurData.var2 | ForEach-Object {
                     $j = 1
                     foreach ($prop in $_.PSObject.Properties) {
                     if ($i -eq 10) {
@@ -131,21 +131,21 @@ function DataReport{
                 $usedRange.EntireColumn.AutoFit() | Out-Null
 
                 # fill cells with header information 
-                $ws.Cells.Item(1,1) = $CurData.var2
-                $ws.Cells.Item(2,1) = $CurData.var3
-                $ws.Cells.Item(3,1) = $input_labels.var4
-                $ws.Cells.Item(4,1) = $CurData.var4
-                $ws.Cells.Item(5,1) = $input_labels.var5
-                $ws.Cells.Item(6,1) = $CurData.var5
+                $ws.Cells.Item(1,1) = $CurData.var4
+                $ws.Cells.Item(2,1) = $CurData.var5
+                $ws.Cells.Item(3,1) = $input_labels.var6
+                $ws.Cells.Item(4,1) = $CurData.var6
+                $ws.Cells.Item(5,1) = $input_labels.var7
+                $ws.Cells.Item(6,1) = $CurData.var7
 
                 # internal use data 
                 $ws.Cells.Item(1,6) = "Internal Use"
                 $ws.Cells.Item(2,6) = $input_labels.var1
                 $ws.Cells.Item(2,7) = $CurData.var1
-                $ws.Cells.Item(3,6) = $input_labels.var6
-                $ws.Cells.Item(3,7) = $CurData.var6
-                $ws.Cells.Item(4,6) = $input_labels.var7
-                $ws.Cells.Item(4,7) = $CurData.var7
+                $ws.Cells.Item(3,6) = $input_labels.var2
+                $ws.Cells.Item(3,7) = $CurData.var2
+                $ws.Cells.Item(4,6) = $input_labels.var3
+                $ws.Cells.Item(4,7) = $CurData.var3
 
                 # format header data
                 $ws.Range("A1:A3").Font.Bold=$True              # BOLD - range A1:A3
