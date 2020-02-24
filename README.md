@@ -36,15 +36,15 @@ An example input data file may be formatted as:
 #### Example Output Data File
 The example input will generate a pretty formated xlsx following this relative spacing:
 
-|My Data|    |    |    |    |    |    |
-|-------|----|----|----|----|----|----|
-|Raw Data Name| | | | |Input_Path|\path\to\my\cool\data.csv|
-|Date| | | | |Code_Path|\path\to\my\cool\code.sql|
-|YYYY-MM-DD| | | | | | |
-|Description| | | | | | |
-|Detail on the data| | | | | | |
-| | | | | | | |
-| | | | | | | |
+|My Data|    |    |    |    |    |    |    |
+|-------|----|----|----|----|----|----|----|
+|Raw Data Name| | | | |Input_Path|\path\to\my\cool\data.csv||
+|Date| | | | |Code_Path|\path\to\my\cool\code.sql||
+|YYYY-MM-DD| | | | | | ||
+|Description| | | | | | ||
+|Detail on the data| | | | | | ||
+| | | | | | | ||
+| | | | | | | ||
 |CSV-V1|CSV-V2|CSV-V3|CSV-V4|CSV-V5|CSV-V6|CSV-V7|...|
 |Data|Data|Data|Data|Data|Data|Data|...|
 
