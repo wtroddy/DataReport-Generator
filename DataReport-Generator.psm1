@@ -92,7 +92,7 @@ function DataReport{
                 if ($CurData.var2) {
                     $RequestTitle = $CurData.var2
                 } else {
-                    $RequestTitle = ($CurData.var6.Split("\")[-1].Split("."))
+                    $RequestTitle = ($CurData.var2.Split("\")[-1].Split("."))
                 }
 
                 # Output Filename
