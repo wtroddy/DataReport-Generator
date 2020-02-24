@@ -8,7 +8,7 @@ Given a set of input parameters, an .xlsx file that will be generated that is re
 Data reports are generated using the function "DataReport" and can be invoked with different methods 1) using a reference .tsv file with relevant arguments or 2) by manually passing an array of arguments.
 
 ### 1) Reference File Use
-Using a reference file is the default behavior of the function. The function works by taking in a input file with up to 7 variables. To support strings with commas this should be a tsv file. 
+Using a reference file is the default behavior of the function. The function works by taking in a input file with up to 7 variables. To support strings with commas this should be a tsv file. This functionality supports creating multiple sheets per workbook and multiple workbook with a single function. Multiple sheets are added to workbook when they share a common value for the first variable (e.g. the ID) of the input file. 
 
 The general syntax for using a reference file is:
 ```
@@ -22,6 +22,21 @@ DataReport -input_data_file ".\input_ref_file.txt"
 
 The input_data_file is anticipated to include 7 columns of reference data, as defined in the Input-Output and Example Files sections below.
 
+### 2) Command Line Argument Use (Manual Mode)
+It is also possible to pass arguments for a single sheet to be generated using the same function. 
+
+The general syntax for using the "manual mode" is:
+```
+DataReport -input_mode_manual:$true -input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path") -input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
+```
+
+It should be noted that a more dynamic use would be to define a variable with the array and that this may be called as a manual input parameter.
+```
+$label_array = @("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path")
+$data_array = @("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
+DataReport -input_mode_manual:$true -input_data:$data_array -input_labels:$label_array
+```
+
 ### Example Files
 #### Example Input Data File 
 An example input data file may be formatted as:
@@ -32,9 +47,8 @@ An example input data file may be formatted as:
 |00000|My Data|Statistics|YYYY-MM-DD|Details on the data|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|
 
 
-
 #### Example Output Data File
-The example input will generate a pretty formated xlsx following this relative spacing:
+The example input will generate a pretty formated xlsx workbook with two sheets. An example of the first row is shown with this relative spacing:
 
 |My Data|    |    |    |    |    |    |    |
 |-------|----|----|----|----|----|----|----|
