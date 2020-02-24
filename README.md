@@ -4,9 +4,6 @@ This PS module will generate "pretty formatted" xlsx's of an input csv dataset.
 
 Given a set of input parameters, an .xlsx file that will be generated that is ready for end users to receive with metadata in addition to the input csv data. 
 
-## Contents:
-[Example Use](/DataReport-Generator#example-use)
-
 ## Example Use:
 Data reports are generated using the function "DataReport" and can be invoked with different methods 1) using a reference .tsv file with relevant arguments or 2) by manually passing an array of arguments.
 
@@ -30,13 +27,17 @@ It is also possible to pass arguments for a single sheet to be generated using t
 
 The general syntax for using the "manual mode" is:
 ```
-DataReport -input_mode_manual:$true -input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path") -input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
+DataReport -input_mode_manual:$true 
+		   -input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path") 
+		   -input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
 ```
 
 It should be noted that a more dynamic use would be to define a variable with the array and that this may be called as a manual input parameter.
 ```
 $label_array = @("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path")
+
 $data_array = @("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
+
 DataReport -input_mode_manual:$true -input_data:$data_array -input_labels:$label_array
 ```
 
