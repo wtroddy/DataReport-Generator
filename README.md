@@ -5,7 +5,7 @@ This PS module will generate "pretty formatted" xlsx's of an input csv dataset.
 Given a set of input parameters, an .xlsx file that will be generated that is ready for end users to receive with metadata in addition to the input csv data. 
 
 ## Contents:
-[Example Use](../DataReport-Generator#example-use)
+[Example Use](/DataReport-Generator#example-use)
 
 ## Example Use:
 Data reports are generated using the function "DataReport" and can be invoked with different methods 1) using a reference .tsv file with relevant arguments or 2) by manually passing an array of arguments.
