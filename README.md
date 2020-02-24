@@ -28,8 +28,8 @@ It is also possible to pass arguments for a single sheet to be generated using t
 The general syntax for using the "manual mode" is:
 ```
 DataReport -input_mode_manual:$true 
-	-input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path") 
-	-input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
+        -input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path") 
+	    -input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
 ```
 
 It should be noted that a more dynamic use would be to define a variable with the array and that this may be called as a manual input parameter.
