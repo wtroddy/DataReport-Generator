@@ -108,20 +108,23 @@ function DataReport{
                 $ws.Name = "$new_sheetname"
 
                 # add data 
-                $i = 10
+                $i = 11
                 Import-Csv $CurData.var2 | ForEach-Object {
                     $j = 1
                     foreach ($prop in $_.PSObject.Properties) {
-                    if ($i -eq 10) {
-                        $ws.Cells.Item($i, $j).Value = $prop.Name
+                        if ($i -eq 11) {
+                            # add header
+                            $ws.Cells.Item($i-1, $j).Value = $prop.Name
+                            
+                            # header formatting 
+                            $ws.Cells.Item($i-1,$j).Interior.ColorIndex = 15
+                            $ws.Cells.Item($i-1,$j).Font.Bold=$True
 
-                        # formatting 
-                        $ws.Cells.Item($i,$j).Interior.ColorIndex = 15
-                        $ws.Cells.Item($i,$j++).Font.Bold=$True
-
-                    } else {
-                        $ws.Cells.Item($i, $j++).Value = $prop.Value
-                    }
+                            # add first row of data 
+                            $ws.Cells.Item($i, $j++).Value = $prop.Value
+                        } else {
+                            $ws.Cells.Item($i, $j++).Value = $prop.Value    
+                        }
                     }
                     $i++
                 }
