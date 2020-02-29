@@ -109,6 +109,9 @@ function DataReport{
 
                 # add data 
                 $i = 11
+                ### add MD5 checksums 
+                $CSV_File_Hash = Get-FileHash $CurData.var2 -Algorithm MD5
+                ### load the csv and loop through data 
                 Import-Csv $CurData.var2 | ForEach-Object {
                     $j = 1
                     foreach ($prop in $_.PSObject.Properties) {
@@ -149,6 +152,8 @@ function DataReport{
                 $ws.Cells.Item(3,7) = $CurData.var2
                 $ws.Cells.Item(4,6) = $input_labels.var3
                 $ws.Cells.Item(4,7) = $CurData.var3
+                $ws.Cells.Item(5,6) = "Input MD5 Checksum"
+                $ws.Cells.Item(5,7) = $CSV_File_Hash.Hash 
 
                 # format header data
                 $ws.Range("A1:A3").Font.Bold=$True              # BOLD - range A1:A3
