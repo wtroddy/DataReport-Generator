@@ -84,10 +84,10 @@ The example input will generate a pretty formated xlsx workbook with two sheets.
 
 |My Data|    |    |    |    |    |Internal Use|    |
 |-------|----|----|----|----|----|----|----|
-|Raw Data Name| | | | |Input_Path|\path\to\my\cool\data.csv||
-|Date| | | | |Code_Path|\path\to\my\cool\code.sql||
-|YYYY-MM-DD| | | | | | ||
-|Description| | | | | | ||
+|Raw Data Name| | | | |RequestID|XXXX||
+|Date| | | | |Input_Path|\path\to\my\cool\data.csv||
+|YYYY-MM-DD| | | | |Code_Path|\path\to\my\cool\code.sql||
+|Description| | | | |Input MD5 Checksum|ABCDEFG123456||
 |Detail on the data| | | | | | ||
 | | | | | | | ||
 | | | | | | | ||
