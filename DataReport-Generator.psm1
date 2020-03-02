@@ -16,8 +16,14 @@ function DataReport{
     $input_data_file, 
     [switch]$input_mode_manual,
     $input_labels,
-    $input_data
+    $input_data,
+    $write_checksum
     )
+
+    # parameter management
+    if ($write_checksum -eq $null) {
+        $write_checksum = $true
+    } 
 
     ### directory management 
     # set root dir to the pwd
@@ -107,11 +113,12 @@ function DataReport{
                 # set the value 
                 $ws.Name = "$new_sheetname"
 
-                # add data 
-                $i = 11
                 ### add MD5 checksums 
                 $CSV_File_Hash = Get-FileHash $CurData.var2 -Algorithm MD5
+                
+                
                 ### load the csv and loop through data 
+                $i = 11
                 Import-Csv $CurData.var2 | ForEach-Object {
                     $j = 1
                     foreach ($prop in $_.PSObject.Properties) {
@@ -152,8 +159,11 @@ function DataReport{
                 $ws.Cells.Item(3,7) = $CurData.var2
                 $ws.Cells.Item(4,6) = $input_labels.var3
                 $ws.Cells.Item(4,7) = $CurData.var3
-                $ws.Cells.Item(5,6) = "Input MD5 Checksum"
-                $ws.Cells.Item(5,7) = $CSV_File_Hash.Hash 
+                # check if the checksum flag is true, if yes add this datta
+                if ($write_checksum -eq $true) {
+                    $ws.Cells.Item(5,6) = "Input MD5 Checksum"
+                    $ws.Cells.Item(5,7) = $CSV_File_Hash.Hash 
+                }
 
                 # format header data
                 $ws.Range("A1:A3").Font.Bold=$True              # BOLD - range A1:A3

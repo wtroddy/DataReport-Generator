@@ -68,6 +68,8 @@ Data from the file referenced in variable #6 is loaded into the spreadsheet star
 
 The output .xlsx file will be named as a combinated of either a) variable #1 and variable #2 or b) variable #1 and variable #6 and saved in the current directory in a new folder named "output". If no output folder exists than the script will generate one.
 
+### Default Variables
+By default, the MD5 file hash checksum for the input csv is added to cell G5 with the label in cell F5. Altough, only 128bits the MD5 checksum should be sufficient for the purposes of file integrity and uniqueness. The chances for collision should be low enough that this is sufficient. If the user believes that another hash algorithm is more appropriate this can be altered by changing the Get-FileHash command. 
 
 ### Example Files
 #### Example Input Data File 
@@ -87,7 +89,7 @@ The example input will generate a pretty formated xlsx workbook with two sheets.
 |Raw Data Name| | | | |RequestID|XXXX||
 |Date| | | | |Input_Path|\path\to\my\cool\data.csv||
 |YYYY-MM-DD| | | | |Code_Path|\path\to\my\cool\code.sql||
-|Description| | | | |Input MD5 Checksum|ABCDEFG123456||
+|Description| | | | |MD5 Checksum|ABCDEFG123456||
 |Detail on the data| | | | | | ||
 | | | | | | | ||
 | | | | | | | ||
