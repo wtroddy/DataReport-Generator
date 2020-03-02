@@ -70,6 +70,7 @@ The output .xlsx file will be named as a combinated of either a) variable #1 and
 
 ### Default Variables
 By default, the MD5 file hash checksum for the input csv is added to cell G5 with the label in cell F5. Altough, only 128bits the MD5 checksum should be sufficient for the purposes of file integrity and uniqueness. The chances for collision should be low enough that this is sufficient. If the user believes that another hash algorithm is more appropriate this can be altered by changing the Get-FileHash command. 
+This setting can be controlled with the argument "-write_checksum:$false".
 
 ### Example Files
 #### Example Input Data File 
