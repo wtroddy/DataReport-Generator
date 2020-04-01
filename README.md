@@ -27,15 +27,15 @@ It is also possible to pass arguments for a single sheet to be generated using t
 
 The general syntax for using the "manual mode" is:
 ```
-DataReport -input_mode_manual:$true -input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path","Directory_Path") 
-	-input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql,"\path\to\my\pretty\data")
+DataReport -input_mode_manual:$true -input_data:@("ID", "Input_Path", "Code_Path", "Title", "Subtitle", "Date", "Description", "Directory_Path") 
+	-input_labels:@("00000", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql, "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "\path\to\my\pretty\data")
 ```
 
 It should be noted that a more dynamic use would be to define a variable with the array and that this may be called as a manual input parameter.
 ```
-$label_array = @("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path", "Directory_Path")
+$label_array = @("ID", "Input_Path", "Code_Path", "Title", "Subtitle", "Date", "Description", "Directory_Path") 
 
-$data_array = @("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql, "\path\to\my\pretty\data")
+$data_array = @("00000", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql, "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "\path\to\my\pretty\data")
 
 DataReport -input_mode_manual:$true -input_data:$data_array -input_labels:$label_array
 ```
