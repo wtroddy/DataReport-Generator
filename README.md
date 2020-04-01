@@ -20,22 +20,22 @@ However, it should noted that this can be called more explicitly. Such as:
 DataReport -input_data_file ".\input_ref_file.txt"
 ```
 
-The input_data_file is anticipated to include 7 columns of reference data, as defined in the Input-Output and Example Files sections below.
+The input_data_file is anticipated to include 8 columns of reference data, as defined in the Input-Output and Example Files sections below.
 
 ### 2) Command Line Argument Use (Manual Mode)
 It is also possible to pass arguments for a single sheet to be generated using the same function. 
 
 The general syntax for using the "manual mode" is:
 ```
-DataReport -input_mode_manual:$true -input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path") 
-	-input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
+DataReport -input_mode_manual:$true -input_data:@("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path","Directory_Path") 
+	-input_labels:@("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql,"\path\to\my\pretty\data")
 ```
 
 It should be noted that a more dynamic use would be to define a variable with the array and that this may be called as a manual input parameter.
 ```
-$label_array = @("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path")
+$label_array = @("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path", "Directory_Path")
 
-$data_array = @("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql)
+$data_array = @("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql, "\path\to\my\pretty\data")
 
 DataReport -input_mode_manual:$true -input_data:$data_array -input_labels:$label_array
 ```
@@ -68,7 +68,7 @@ Custom variables in the following cells:
 
 Data from the file referenced in variable #6 is loaded into the spreadsheet starting in row 10 with the input variable names bolded, a background cell color of gray added, and the cells locked to allow scrolling while keeping the variable names shown.
 
-The output .xlsx file will be named as a combinated of either a) variable #1 and variable #2 or b) variable #1 and variable #6 and saved in the current directory in a new folder named "output". If no output folder exists than the script will generate one.
+The output .xlsx file will be named as a combinated of either a) variable #1 and variable #2 or b) variable #1 and variable #6 and saved in the directory defined by variable #8. If no output directory is defined the default is the pwd.
 
 ### Default Variables
 By default, the MD5 file hash checksum for the input csv is added to cell G5 with the label in cell F5. Altough, only 128bits the MD5 checksum should be sufficient for the purposes of file integrity and uniqueness. The chances for collision should be low enough that this is sufficient. If the user believes that another hash algorithm is more appropriate this can be altered by changing the Get-FileHash command. 
@@ -78,10 +78,10 @@ This setting can be controlled with the argument "-write_checksum:$false".
 #### Example Input Data File 
 An example input data file may be formatted as:
 
-|RequestID|Input_Path|Code_Path|Title|SubTitle|Date|Description|
-|---------|----------|---------|-----|--------|----|-----------|
-|00000|\path\to\my\cool\data.csv |\path\to\my\cool\code.sql|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|
-|00000|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|My Data|Statistics|YYYY-MM-DD|Details on the data|
+|RequestID|Input_Path|Code_Path|Title|SubTitle|Date|Description|Output_Directory|
+|---------|----------|---------|-----|--------|----|-----------|----------------|
+|00000|\path\to\my\cool\data.csv |\path\to\my\cool\code.sql|My Data|Raw Data Name|YYYY-MM-DD|Details on the data|\path\to\my\pretty\data|
+|00000|\path\to\my\cool\data.csv |\path\to\my\cool\code.R|My Data|Statistics|YYYY-MM-DD|Details on the data|\path\to\my\pretty\data|
 
 
 #### Example Output Data File

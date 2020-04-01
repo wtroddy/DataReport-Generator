@@ -3,10 +3,25 @@
   Generate a report with manually defined parameters
   
   .Description
-  some description here
+  This PS module will generate "pretty formatted" xlsx's of an input csv dataset.
+  Given a set of input parameters, an .xlsx file that will be generated that is ready for end users to receive with metadata in addition to the input csv data. 
 
-  .Parameter input_path
-  describe
+  .Parameter input_data_file
+  The path to an input tab separated file for batch creation of pretty formated xlsx files.
+
+  .Parameter input_mode_manual
+  True/False flag to manually define input parameters instead of using a batch file. The default value of $false will load a file.
+
+  .Parameter input_labels
+  Input array of labels for input_data. See README for additional details on use and optional arguments.
+  Recommended values: $label_array = @("ID","Title","Subtitle","Date","Description","Input_Path","Code_Path", "Directory_Path").  
+
+  .Parameter input_data
+  Input array of data/metadata to fill into xlsx. See README for additional details on use and optional arguments.
+  Recommended values: $data_array = @("00000", "My Data", "Raw Data Name", "YYYY-MM-DD", "details on the data", "path\to\my\cool\data.csv", "path\to\my\cool\code.sql, "\path\to\my\pretty\data")
+
+  .Parameter write_checksum
+  Optional argument to include the MD5 checksum in output file. Default value is $true. 
      
 #>
 
