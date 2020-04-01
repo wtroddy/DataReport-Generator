@@ -54,6 +54,7 @@ Custom variables in the following cells:
 |Reference Variable #5|A2|Bolded||
 |Reference Variable #6|A4|||
 |Reference Variable #7|A6|||
+|Reference Variable #8|Output Directory Name||If no value is provided then this defaults to pwd|
 |Reference Label #1|F2|Bolded, Right Aligned||
 |Reference Label #2|F3|Bolded, Right Aligned||
 |Reference Label #3|F4|Bolded, Right Aligned||
@@ -61,6 +62,7 @@ Custom variables in the following cells:
 |Reference Label #5|||Not Output|
 |Reference Label #6|A3|Bolded||
 |Reference Label #7|A5|Bolded||
+|Reference Label #8|||Not Output|
 
 ^important: this should be a path to a .csv file and is used to identify data that is added to the report and must be included. e.g.: .\path\to\my\cool\data.csv
 

@@ -25,18 +25,6 @@ function DataReport{
         $write_checksum = $true
     } 
 
-    ### directory management 
-    # set root dir to the pwd
-    $root_dir = pwd
-
-    # join strings
-    $output_dirname = Join-Path $root_dir "\output"
-
-    # check if the output directory exists, if fnot create it
-    if (!(Test-Path $output_dirname)) {
-        New-Item -ItemType Directory -Force -Path $output_dirname
-    }
-
     ### conditionally load data based on the input mode 
     # for tsv input 
     if ($input_mode_manual -eq $false) { 
@@ -57,6 +45,7 @@ function DataReport{
                         var5 = $input_data[4] 
                         var6 = $input_data[5]
                         var7 = $input_data[6]
+                        var8 = $input_data[7]
                         }
 
             # relabel input labels in hash 
@@ -67,6 +56,7 @@ function DataReport{
                               var5 = $input_labels[4] 
                               var6 = $input_labels[5]
                               var7 = $input_labels[6]
+                              var8 = $input_labels[7]
                              }
     }
 
@@ -101,6 +91,14 @@ function DataReport{
                     $RequestTitle = ($CurData.var2.Split("\")[-1].Split("."))
                 }
 
+                ### Output Management
+                # Output Folder
+                if ($CurData.var8) {
+                    $output_dirname = $CurData.var8
+                } else {
+                    $output_dirname = pwd
+                }
+
                 # Output Filename
                 $output_fname = "\" + $CurData.var1 + "_" + ($RequestTitle -replace "\s+", "") + ".xlsx"
 
@@ -110,6 +108,7 @@ function DataReport{
                 # change the name of the sheet
                 # get the value
                 $new_sheetname = $CurData.var5    ### this is a janky solution but it works
+				
                 # set the value 
                 $ws.Name = "$new_sheetname"
 
