@@ -206,7 +206,9 @@ function DataReport{
             
             }
         # Save and Quit 
-        $workbook.SaveAs($output_dirname+$output_fname) | Out-Null
+        # create the output dir string         
+        $output_dirfilename = $output_dirname.ToString()+$output_fname
+        $workbook.SaveAs($output_dirfilename) | Out-Null
         $excel.Quit() | Out-Null
 
     }
